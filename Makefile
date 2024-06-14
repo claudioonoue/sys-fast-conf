@@ -2,5 +2,5 @@
 git-backup:
 	git add .
 	git commit -m "chore: backup to git"
-	git push
+	git push origin main
 
