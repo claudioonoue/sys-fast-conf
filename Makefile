@@ -4,8 +4,8 @@ git-backup:
 	git commit -m "chore: backup to git"
 	git push origin main
 
-.PHONY: set-apps-conf
-set-apps-conf:
-	stow -v -d app-conf -t ~ nvim
-	stow -v -d app-conf -t ~ zshrc
-	stow -v -d app-conf -t ~ tmux
+.PHONY: set-app-conf
+set-app-conf:
+	stow -v -d app-conf -t ~ -R nvim
+	stow -v -d app-conf -t ~ -R zshrc
+	stow -v -d app-conf -t ~ -R tmux
