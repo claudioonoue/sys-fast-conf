@@ -2,7 +2,7 @@
 git-backup:
 	git add .
 	git commit -m "chore: backup to git"
-	git push origin main
+	git push origin 
 
 .PHONY: clone-git-req
 clone-git-req:
