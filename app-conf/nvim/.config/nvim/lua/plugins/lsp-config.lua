@@ -21,6 +21,7 @@ return {
 					"clangd",
 					"gopls",
 					"tsserver",
+					"rust_analyzer",
 					"sqlls",
 				},
 			})
@@ -83,6 +84,9 @@ return {
 				capabilities = capabilities,
 			})
 			lspconfig.tsserver.setup({
+				capabilities = capabilities,
+			})
+			lspconfig.rust_analyzer.setup({
 				capabilities = capabilities,
 			})
 
