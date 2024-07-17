@@ -74,9 +74,12 @@ ZSH_THEME="amuse"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git asdf docker docker-compose debian)
+plugins=(git asdf docker docker-compose debian) 
 
 #ZSH_TMUX_AUTOSTART=true
+
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/completion.zsh
 
 source $ZSH/oh-my-zsh.sh
 
