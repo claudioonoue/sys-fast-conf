@@ -42,7 +42,7 @@ return {
 					"goimports-reviser",
 					"goimports",
 					"golangci_lint",
-					"prettier",
+                    --"prettier",
 					"eslint_d",
 				},
 				methods = {
@@ -62,7 +62,7 @@ return {
 					null_ls.builtins.formatting.goimports,
 					null_ls.builtins.formatting.goimports_reviser,
 					null_ls.builtins.diagnostics.golangci_lint,
-					null_ls.builtins.formatting.prettier,
+					--null_ls.builtins.formatting.prettier,
 					require("none-ls.diagnostics.eslint_d"),
 				},
 			})
