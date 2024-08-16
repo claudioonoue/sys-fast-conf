@@ -21,6 +21,7 @@ return {
 					"clangd",
 					"gopls",
 					"tsserver",
+					"rust_analyzer",
 					"sqlls",
 				},
 			})
@@ -41,7 +42,7 @@ return {
 					"goimports-reviser",
 					"goimports",
 					"golangci_lint",
-					"prettier",
+                    --"prettier",
 					"eslint_d",
 				},
 				methods = {
@@ -61,7 +62,7 @@ return {
 					null_ls.builtins.formatting.goimports,
 					null_ls.builtins.formatting.goimports_reviser,
 					null_ls.builtins.diagnostics.golangci_lint,
-					null_ls.builtins.formatting.prettier,
+					--null_ls.builtins.formatting.prettier,
 					require("none-ls.diagnostics.eslint_d"),
 				},
 			})
@@ -83,6 +84,12 @@ return {
 				capabilities = capabilities,
 			})
 			lspconfig.tsserver.setup({
+				capabilities = capabilities,
+			})
+			lspconfig.rust_analyzer.setup({
+				capabilities = capabilities,
+			})
+			lspconfig.jsonls.setup({
 				capabilities = capabilities,
 			})
 
