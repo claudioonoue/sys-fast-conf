@@ -62,7 +62,9 @@ return {
 					null_ls.builtins.formatting.goimports,
 					null_ls.builtins.formatting.goimports_reviser,
 					null_ls.builtins.diagnostics.golangci_lint,
-					null_ls.builtins.formatting.prettier,
+					null_ls.builtins.formatting.prettier.with({
+						disabled_filetypes = { "html" },
+					}),
 					require("none-ls.diagnostics.eslint_d"),
 				},
 				on_attach = function(client, bufnr)
@@ -76,7 +78,7 @@ return {
 								-- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
 								-- on later neovim version, you should use vim.lsp.buf.format({ async = false }) instead
 								-- vim.lsp.buf.formatting_sync()
-								vim.lsp.buf.format({ async = false })
+								vim.lsp.buf.format({ async = true })
 							end,
 						})
 					end
