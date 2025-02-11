@@ -19,7 +19,7 @@ return {
 		config = function()
 			require("cyberdream").setup({
 				transparent = true,
-				borderless_telescope = false,
+				borderless_pickers = false,
 			})
 		end,
 	},
