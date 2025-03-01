@@ -29,7 +29,7 @@ return {
 		--end)
 
 		require("ibl").setup({
-		--	indent = { highlight = highlight },
+			--	indent = { highlight = highlight },
 		})
 	end,
 }
