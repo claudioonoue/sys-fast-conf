@@ -18,6 +18,7 @@ function M.setup()
 	vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 	vim.opt.inccommand = "split"
 	vim.opt.cursorline = true
+	vim.opt.colorcolumn = "100"
 
 	vim.g.have_nerd_font = true
 end

@@ -15,3 +15,15 @@ set-app-conf:
 	stow -v -d app-conf -t ~ -R zshrc
 	stow -v -d app-conf -t ~ -R tmux
 	stow -v -d app-conf -t ~ -R kitty
+
+.PHONY: nvim
+nvim:
+	nvim app-conf/nvim/.config/nvim
+
+.PHONY:	tmux 
+tmux:
+	nvim app-conf/tmux/.config/tmux
+
+.PHONY:	kitty 
+kitty:
+	nvim app-conf/kitty/.config/kitty

@@ -97,13 +97,13 @@ return {
 		end,
 	},
 	{
-		"williamboman/mason.nvim",
+		"mason-org/mason.nvim",
 		config = function()
 			require("mason").setup({})
 		end,
 	},
 	{
-		"williamboman/mason-lspconfig.nvim",
+		"mason-org/mason-lspconfig.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
 				ensure_installed = {
@@ -121,6 +121,7 @@ return {
 					"rust_analyzer",
 					"sqlls",
 				},
+				automatic_enable = false,
 			})
 		end,
 	},
@@ -153,6 +154,7 @@ return {
 				handlers = {},
 			})
 
+			local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 			null_ls.setup({
 				sources = {
 					null_ls.builtins.formatting.stylua,
@@ -166,7 +168,6 @@ return {
 				},
 				on_attach = function(client, bufnr)
 					if client.supports_method("textDocument/formatting") then
-						local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 						vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
 						vim.api.nvim_create_autocmd("BufWritePre", {
 							group = augroup,
@@ -276,7 +277,11 @@ return {
 					--  For example, in C this would take you to the header.
 					map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
-					map("<leader>ff", vim.lsp.buf.format, "Format on demand")
+					map("K", vim.lsp.buf.hover, "Hover on current word")
+
+					map("<leader>ff", function()
+						vim.lsp.buf.format({ async = false })
+					end, "Format on demand")
 
 					local function client_supports_method(client, method, bufnr)
 						if vim.fn.has("nvim-0.11") == 1 then
@@ -317,6 +322,15 @@ return {
 							end,
 						})
 					end
+
+					--[[if
+						client
+						and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf)
+					then
+						map("<leader>th", function()
+							vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(), { bufnr = event.buf })
+						end, "[T]oggle Inlay [H]ints")
+					end]]
 				end,
 			})
 			-- Diagnostic Config

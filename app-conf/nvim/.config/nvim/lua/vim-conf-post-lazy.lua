@@ -1,3 +1,3 @@
 local colorScheme = require("config.colorscheme")
 
-colorScheme.setup()
+colorScheme.setup("github_dark_default")
