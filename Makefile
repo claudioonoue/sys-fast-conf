@@ -24,6 +24,10 @@ nvim:
 tmux:
 	nvim app-conf/tmux/.config/tmux
 
+.PHONY: tpm
+tpm:
+	~/.config/tmux/plugins/tpm/bin/install_plugins
+
 .PHONY:	kitty 
 kitty:
 	nvim app-conf/kitty/.config/kitty
