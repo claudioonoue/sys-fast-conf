@@ -262,10 +262,27 @@ return {
 		dependencies = {
 			"williamboman/mason.nvim",
 			"nvimtools/none-ls-extras.nvim",
+			"jay-babu/mason-null-ls.nvim",
 		},
 		config = function()
 			local null_ls = require("null-ls")
 			local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
+			-- Configuração do mason-null-ls ANTES do null-ls
+			require("mason-null-ls").setup({
+				ensure_installed = {
+					"stylua",
+					"goimports-reviser",
+					"goimports",
+					"golangci_lint",
+					"prettier",
+					"eslint_d",
+					"black",
+					"isort",
+				},
+				automatic_installation = true,
+				handlers = {},
+			})
 
 			null_ls.setup({
 				border = "rounded",
