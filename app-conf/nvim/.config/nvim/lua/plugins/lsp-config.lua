@@ -280,7 +280,14 @@ return {
 					"black",
 					"isort",
 				},
-				automatic_installation = true,
+				methods = {
+					diagnostics = false,
+					formatting = false,
+					code_actions = false,
+					completion = false,
+					hover = false,
+				},
+				automatic_installation = false,
 				handlers = {},
 			})
 
@@ -408,7 +415,7 @@ return {
 							},
 							usePlaceholders = true,
 							completeUnimported = true,
-							staticcheck = true,
+							staticcheck = false,
 							directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
 							semanticTokens = true,
 						},
