@@ -1,7 +1,7 @@
 .PHONY: git-backup
 git-backup:
 	git add .
-	git commit -m "chore: backup to git"
+	git commit -m "chore: backup to git$(if $(word 2,$(MAKECMDGOALS)), - $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS)))"
 	git push origin 
 
 .PHONY: clone-git-req
