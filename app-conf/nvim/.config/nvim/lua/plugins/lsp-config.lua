@@ -19,25 +19,25 @@ return {
 		end)(),
 		config = function()
 			local luasnip = require("luasnip")
-			
+
 			-- Configurações do LuaSnip
 			luasnip.config.setup({
 				history = true,
 				updateevents = "TextChanged,TextChangedI",
 				enable_autosnippets = true,
 			})
-			
+
 			-- Carrega snippets do VSCode
 			require("luasnip.loaders.from_vscode").lazy_load()
-			
+
 			-- Keymaps para navegação de snippets
-			vim.keymap.set({"i", "s"}, "<C-k>", function()
+			vim.keymap.set({ "i", "s" }, "<C-k>", function()
 				if luasnip.expand_or_jumpable() then
 					luasnip.expand_or_jump()
 				end
 			end, { desc = "Expand/Jump snippet forward" })
 
-			vim.keymap.set({"i", "s"}, "<C-j>", function()
+			vim.keymap.set({ "i", "s" }, "<C-j>", function()
 				if luasnip.jumpable(-1) then
 					luasnip.jump(-1)
 				end
@@ -60,7 +60,8 @@ return {
 			-- Função helper para verificar se há espaço antes do cursor
 			local has_words_before = function()
 				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-				return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+				return col ~= 0
+					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 			end
 
 			cmp.setup({
@@ -110,7 +111,7 @@ return {
 							TypeParameter = "",
 						}
 
-						vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind] or "", vim_item.kind)
+						vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind] or "", vim_item.kind)
 						vim_item.menu = ({
 							nvim_lsp = "[LSP]",
 							luasnip = "[Snippet]",
@@ -118,7 +119,7 @@ return {
 							path = "[Path]",
 							nvim_lsp_signature_help = "[Signature]",
 						})[entry.source.name]
-						
+
 						return vim_item
 					end,
 				},
@@ -129,9 +130,9 @@ return {
 					["<C-f>"] = cmp.mapping.scroll_docs(4),
 					["<C-Space>"] = cmp.mapping.complete(),
 					["<C-e>"] = cmp.mapping.abort(),
-					["<CR>"] = cmp.mapping.confirm({ 
+					["<CR>"] = cmp.mapping.confirm({
 						behavior = cmp.ConfirmBehavior.Replace,
-						select = true 
+						select = true,
 					}),
 					-- Super Tab like navigation
 					["<Tab>"] = cmp.mapping(function(fallback)
@@ -156,12 +157,12 @@ return {
 					end, { "i", "s" }),
 				}),
 				sources = cmp.config.sources({
-					{ 
+					{
 						name = "nvim_lsp",
 						priority = 1000,
 						max_item_count = 20,
 					},
-					{ 
+					{
 						name = "luasnip",
 						priority = 750,
 						max_item_count = 5,
@@ -171,7 +172,7 @@ return {
 						priority = 500,
 					},
 				}, {
-					{ 
+					{
 						name = "buffer",
 						priority = 250,
 						keyword_length = 3,
@@ -304,7 +305,7 @@ return {
 					}),
 					null_ls.builtins.formatting.black, -- Python
 					null_ls.builtins.formatting.isort, -- Python imports
-					
+
 					-- Diagnostics
 					null_ls.builtins.diagnostics.golangci_lint,
 					require("none-ls.diagnostics.eslint_d"),
@@ -316,12 +317,12 @@ return {
 							group = augroup,
 							buffer = bufnr,
 							callback = function()
-								vim.lsp.buf.format({ 
+								vim.lsp.buf.format({
 									async = false,
 									filter = function(format_client)
 										-- Use null-ls para formatação quando disponível
 										return format_client.name == "null-ls"
-									end
+									end,
 								})
 							end,
 						})
@@ -350,7 +351,7 @@ return {
 				vim.lsp.protocol.make_client_capabilities(),
 				require("cmp_nvim_lsp").default_capabilities()
 			)
-			
+
 			-- Configurações específicas por LSP
 			local servers = {
 				lua_ls = {
@@ -362,9 +363,9 @@ return {
 								library = { vim.env.VIMRUNTIME },
 							},
 							completion = { callSnippet = "Replace" },
-							diagnostics = { 
+							diagnostics = {
 								globals = { "vim" },
-								disable = { "missing-fields" }
+								disable = { "missing-fields" },
 							},
 						},
 					},
@@ -470,7 +471,7 @@ return {
 				jsonls = {
 					settings = {
 						json = {
-							schemas = require('schemastore').json.schemas(),
+							schemas = require("schemastore").json.schemas(),
 							validate = { enable = true },
 							format = { enable = true },
 						},
@@ -485,7 +486,7 @@ return {
 								-- Evita o TypeError: Cannot read properties of undefined (reading 'length')
 								url = "",
 							},
-							schemas = require('schemastore').yaml.schemas(),
+							schemas = require("schemastore").yaml.schemas(),
 							validate = true,
 							completion = true,
 							hover = true,
@@ -495,7 +496,7 @@ return {
 			}
 
 			local lspconfig = require("lspconfig")
-			
+
 			-- Aplica configurações para cada servidor
 			for server_name, server_config in pairs(servers) do
 				server_config.capabilities = capabilities
@@ -511,8 +512,12 @@ return {
 			-- Keymaps globais para diagnósticos
 			local diagnostic_goto_opts = { float = { border = "rounded" } }
 			vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show line diagnostics" })
-			vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev(diagnostic_goto_opts) end, { desc = "Go to previous diagnostic" })
-			vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next(diagnostic_goto_opts) end, { desc = "Go to next diagnostic" })
+			vim.keymap.set("n", "[d", function()
+				vim.diagnostic.goto_prev(diagnostic_goto_opts)
+			end, { desc = "Go to previous diagnostic" })
+			vim.keymap.set("n", "]d", function()
+				vim.diagnostic.goto_next(diagnostic_goto_opts)
+			end, { desc = "Go to next diagnostic" })
 			vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Diagnostic loclist" })
 
 			-- Configuração quando LSP se anexa ao buffer
@@ -520,17 +525,17 @@ return {
 				group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
 				callback = function(event)
 					local client = vim.lsp.get_client_by_id(event.data.client_id)
-					
+
 					-- Omnifunc para completion manual
 					vim.bo[event.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
 					-- Helper function para criar keymaps
 					local map = function(keys, func, desc, mode)
 						mode = mode or "n"
-						vim.keymap.set(mode, keys, func, { 
-							buffer = event.buf, 
+						vim.keymap.set(mode, keys, func, {
+							buffer = event.buf,
 							desc = "LSP: " .. desc,
-							silent = true 
+							silent = true,
 						})
 					end
 
@@ -555,7 +560,11 @@ return {
 
 					-- Símbolos
 					map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
-					map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+					map(
+						"<leader>ws",
+						require("telescope.builtin").lsp_dynamic_workspace_symbols,
+						"[W]orkspace [S]ymbols"
+					)
 
 					-- Ações
 					if client.server_capabilities.renameProvider then
@@ -608,7 +617,10 @@ return {
 					-- Inlay hints (se disponível)
 					if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
 						map("<leader>th", function()
-							vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }), { bufnr = event.buf })
+							vim.lsp.inlay_hint.enable(
+								not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }),
+								{ bufnr = event.buf }
+							)
 						end, "[T]oggle Inlay [H]ints")
 					end
 				end,
