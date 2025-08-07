@@ -18,7 +18,7 @@ set-app-conf:
 
 .PHONY: nvim
 nvim:
-	nvim app-conf/nvim/.config/nvim
+	cd ./app-conf/nvim/.config/nvim && nvim
 
 .PHONY:	tmux 
 tmux:
