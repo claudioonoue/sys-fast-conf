@@ -307,7 +307,9 @@ return {
 					null_ls.builtins.formatting.isort, -- Python imports
 
 					-- Diagnostics
-					null_ls.builtins.diagnostics.golangci_lint,
+					null_ls.builtins.diagnostics.golangci_lint.with({
+						extra_args = { "-D staticcheck" },
+					}),
 					require("none-ls.diagnostics.eslint_d"),
 				},
 				on_attach = function(client, bufnr)
@@ -355,118 +357,118 @@ return {
 			-- Configurações específicas por LSP
 			local servers = {
 				lua_ls = {
-					settings = {
-						Lua = {
-							runtime = { version = "LuaJIT" },
-							workspace = {
-								checkThirdParty = false,
-								library = { vim.env.VIMRUNTIME },
-							},
-							completion = { callSnippet = "Replace" },
-							diagnostics = {
-								globals = { "vim" },
-								disable = { "missing-fields" },
-							},
-						},
-					},
+					--settings = {
+					--	Lua = {
+					--		runtime = { version = "LuaJIT" },
+					--		workspace = {
+					--			checkThirdParty = false,
+					--			library = { vim.env.VIMRUNTIME },
+					--		},
+					--		completion = { callSnippet = "Replace" },
+					--		diagnostics = {
+					--			globals = { "vim" },
+					--			disable = { "missing-fields" },
+					--		},
+					--	},
+					--},
 				},
 				clangd = {
-					cmd = {
-						"clangd",
-						"--background-index",
-						"--clang-tidy",
-						"--header-insertion=iwyu",
-						"--completion-style=detailed",
-						"--function-arg-placeholders",
-						"--fallback-style=llvm",
-					},
-					init_options = {
-						usePlaceholders = true,
-					},
+					--cmd = {
+					--	"clangd",
+					--	"--background-index",
+					--	"--clang-tidy",
+					--	"--header-insertion=iwyu",
+					--	"--completion-style=detailed",
+					--	"--function-arg-placeholders",
+					--	"--fallback-style=llvm",
+					--},
+					--init_options = {
+					--	usePlaceholders = true,
+					--},
 				},
 				gopls = {
 					settings = {
 						gopls = {
-							gofumpt = true,
-							codelenses = {
-								gc_details = false,
-								generate = true,
-								regenerate_cgo = true,
-								run_govulncheck = true,
-								test = true,
-								tidy = true,
-								upgrade_dependency = true,
-								vendor = true,
-							},
-							hints = {
-								assignVariableTypes = true,
-								compositeLiteralFields = true,
-								compositeLiteralTypes = true,
-								constantValues = true,
-								functionTypeParameters = true,
-								parameterNames = true,
-								rangeVariableTypes = true,
-							},
-							analyses = {
-								fieldalignment = true,
-								nilness = true,
-								unusedparams = true,
-								unusedwrite = true,
-								useany = true,
-							},
-							usePlaceholders = true,
-							completeUnimported = true,
-							staticcheck = false,
-							directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
-							semanticTokens = true,
+							--gofumpt = true,
+							--codelenses = {
+							--	gc_details = false,
+							--	generate = true,
+							--	regenerate_cgo = true,
+							--	run_govulncheck = true,
+							--	test = true,
+							--	tidy = true,
+							--	upgrade_dependency = true,
+							--	vendor = true,
+							--},
+							--hints = {
+							--	assignVariableTypes = true,
+							--	compositeLiteralFields = true,
+							--	compositeLiteralTypes = true,
+							--	constantValues = true,
+							--	functionTypeParameters = true,
+							--	parameterNames = true,
+							--	rangeVariableTypes = true,
+							--},
+							--analyses = {
+							--	fieldalignment = true,
+							--	nilness = true,
+							--	unusedparams = true,
+							--	unusedwrite = true,
+							--	useany = true,
+							--},
+							--usePlaceholders = true,
+							--completeUnimported = true,
+							--staticcheck = false,
+							--directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+							--semanticTokens = true,
 						},
 					},
 				},
 				rust_analyzer = {
-					settings = {
-						["rust-analyzer"] = {
-							imports = {
-								granularity = {
-									group = "module",
-								},
-								prefix = "self",
-							},
-							cargo = {
-								buildScripts = {
-									enable = true,
-								},
-							},
-							procMacro = {
-								enable = true,
-							},
-						},
-					},
+					--settings = {
+					--	["rust-analyzer"] = {
+					--		imports = {
+					--			granularity = {
+					--				group = "module",
+					--			},
+					--			prefix = "self",
+					--		},
+					--		cargo = {
+					--			buildScripts = {
+					--				enable = true,
+					--			},
+					--		},
+					--		procMacro = {
+					--			enable = true,
+					--		},
+					--	},
+					--},
 				},
 				ts_ls = {
-					settings = {
-						typescript = {
-							inlayHints = {
-								includeInlayParameterNameHints = "literal",
-								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-								includeInlayFunctionParameterTypeHints = true,
-								includeInlayVariableTypeHints = false,
-								includeInlayPropertyDeclarationTypeHints = true,
-								includeInlayFunctionLikeReturnTypeHints = true,
-								includeInlayEnumMemberValueHints = true,
-							},
-						},
-						javascript = {
-							inlayHints = {
-								includeInlayParameterNameHints = "all",
-								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-								includeInlayFunctionParameterTypeHints = true,
-								includeInlayVariableTypeHints = true,
-								includeInlayPropertyDeclarationTypeHints = true,
-								includeInlayFunctionLikeReturnTypeHints = true,
-								includeInlayEnumMemberValueHints = true,
-							},
-						},
-					},
+					--settings = {
+					--	typescript = {
+					--		inlayHints = {
+					--			includeInlayParameterNameHints = "literal",
+					--			includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+					--			includeInlayFunctionParameterTypeHints = true,
+					--			includeInlayVariableTypeHints = false,
+					--			includeInlayPropertyDeclarationTypeHints = true,
+					--			includeInlayFunctionLikeReturnTypeHints = true,
+					--			includeInlayEnumMemberValueHints = true,
+					--		},
+					--	},
+					--	javascript = {
+					--		inlayHints = {
+					--			includeInlayParameterNameHints = "all",
+					--			includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+					--			includeInlayFunctionParameterTypeHints = true,
+					--			includeInlayVariableTypeHints = true,
+					--			includeInlayPropertyDeclarationTypeHints = true,
+					--			includeInlayFunctionLikeReturnTypeHints = true,
+					--			includeInlayEnumMemberValueHints = true,
+					--		},
+					--	},
+					--},
 				},
 				jsonls = {
 					settings = {
