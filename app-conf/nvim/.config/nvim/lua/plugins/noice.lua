@@ -21,15 +21,28 @@ return {
 						["vim.lsp.util.stylize_markdown"] = true,
 						["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
 					},
-				}, -- you can enable a preset for easier configuration
+					message = {
+						enabled = true,
+						view = "mini",
+					},
+				},
 				presets = {
 					long_message_to_split = true, -- long messages will be sent to a split
 					lsp_doc_border = true, -- add a border to hover docs and signature help
 				},
 				messages = {
-					enabled = false,
-					view = "mini",
+					view = "cmdline",
+					vier_error = "notify",
 				},
+				--routes = {
+				--{
+				--	view = "notify",
+				--	filter = {
+				--		warning = true,
+				--	},
+				--	opts = { skip = true },
+				--},
+				--},
 			})
 
 			vim.keymap.set("n", "<leader>dn", "<cmd>NoiceDismiss<CR>")

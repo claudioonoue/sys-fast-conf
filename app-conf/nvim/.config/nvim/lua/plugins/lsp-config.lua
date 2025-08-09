@@ -160,17 +160,16 @@ return {
 					{
 						name = "nvim_lsp",
 						priority = 1000,
-						max_item_count = 20,
 					},
 					{
 						name = "luasnip",
 						priority = 750,
 						max_item_count = 5,
 					},
-					{
-						name = "nvim_lsp_signature_help",
-						priority = 500,
-					},
+					--{
+					--	name = "nvim_lsp_signature_help",
+					--	priority = 500,
+					--},
 				}, {
 					{
 						name = "buffer",
@@ -184,9 +183,7 @@ return {
 					},
 				}),
 				experimental = {
-					ghost_text = {
-						hl_group = "CmpGhostText",
-					},
+					ghost_text = false,
 				},
 			})
 
@@ -313,7 +310,7 @@ return {
 					require("none-ls.diagnostics.eslint_d"),
 				},
 				on_attach = function(client, bufnr)
-					if client.supports_method("textDocument/formatting") then
+					if client:supports_method("textDocument/formatting") then
 						vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
 						vim.api.nvim_create_autocmd("BufWritePre", {
 							group = augroup,
@@ -544,7 +541,7 @@ return {
 					-- Navegação
 					if client.server_capabilities.definitionProvider then
 						map("gd", function()
-							require("telescope.builtin").lsp_definitions({ reuse_win = true })
+							require("telescope.builtin").lsp_definitions()
 						end, "[G]oto [D]efinition")
 					end
 
