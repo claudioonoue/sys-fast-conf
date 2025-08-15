@@ -19,7 +19,7 @@ function M.setup()
 	vim.opt.inccommand = "split"
 	vim.opt.cursorline = true
 	vim.opt.colorcolumn = "100"
-	vim.opt.whichwrap = "b,s,<,>,[,],h,l"
+	--vim.opt.whichwrap = "b,s,<,>,[,],h,l"
 
 	vim.g.have_nerd_font = true
 end
