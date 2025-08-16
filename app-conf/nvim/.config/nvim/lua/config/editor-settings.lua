@@ -7,6 +7,8 @@ function M.setup()
 	vim.opt.softtabstop = 4
 	vim.opt.shiftwidth = 4
 	vim.opt.breakindent = true
+	vim.opt.linebreak = true
+	vim.opt.showbreak = "> "
 	vim.opt.scrolloff = 15
 	vim.opt.signcolumn = "yes"
 	vim.opt.isfname:append("@-@")

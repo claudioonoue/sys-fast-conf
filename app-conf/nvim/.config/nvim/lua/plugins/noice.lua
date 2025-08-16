@@ -31,7 +31,7 @@ return {
 					lsp_doc_border = true, -- add a border to hover docs and signature help
 				},
 				messages = {
-					view = "cmdline",
+					view = "notify",
 					vier_error = "notify",
 				},
 				--routes = {
