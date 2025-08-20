@@ -32,12 +32,14 @@ return {
 		vim.keymap.set("n", "<leader>nr", "<cmd>Neotree toggle right<CR>")
 
 		require("neo-tree").setup({
+			close_if_last_window = true,
 			filesystem = {
+				use_libuv_file_watcher = true,
 				filtered_items = {
 					visible = true,
 					show_hidden_count = true,
 					hide_dotfiles = false,
-					hide_gitignored = true,
+					hide_gitignored = false,
 					hide_by_name = {
 						-- '.git',
 						-- '.DS_Store',
