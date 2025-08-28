@@ -32,7 +32,6 @@ return {
 		vim.keymap.set("n", "<leader>nr", "<cmd>Neotree toggle right<CR>")
 
 		require("neo-tree").setup({
-			close_if_last_window = true,
 			filesystem = {
 				use_libuv_file_watcher = true,
 				filtered_items = {
